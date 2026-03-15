@@ -4,6 +4,7 @@ Transform any lecture transcript into smart study tools: structured notes, flash
 
 For step-by-step usage of the app (tabs, workflow, tips), see **[USER_GUIDE.md](USER_GUIDE.md)**. For installation and deployment, see **[SETUP.md](SETUP.md)**.
 
+Youtube Demo Link: https://www.youtube.com/watch?v=fjgACeMp9Lo
 ---
 
 ## Getting Started
