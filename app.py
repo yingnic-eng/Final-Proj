@@ -53,7 +53,13 @@ st.session_state.setdefault("processed", False)
 # ── Anthropic client ────────────────────────────────────────────────────────
 @st.cache_resource
 def get_client():
-    return anthropic.Anthropic()   # reads ANTHROPIC_API_KEY from env
+    # Works on Streamlit Cloud (st.secrets) and locally (.env / environment variable)
+    try:
+        api_key = st.secrets["ANTHROPIC_API_KEY"]
+    except Exception:
+        import os
+        api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    return anthropic.Anthropic(api_key=api_key)
 
 client = get_client()
 
@@ -61,7 +67,7 @@ client = get_client()
 def call_claude(prompt: str, system: str = "", max_tokens: int = 2000) -> str:
     """Call Claude API and return text response."""
     kwargs = dict(
-        model="claude-opus-4-5",
+        model="claude-sonnet-4-5",
         max_tokens=max_tokens,
         messages=[{"role": "user", "content": prompt}],
     )
@@ -154,7 +160,7 @@ LECTURE TRANSCRIPT:
 
     messages = history + [{"role": "user", "content": question}]
     response = client.messages.create(
-        model="claude-opus-4-5",
+        model="claude-sonnet-4-5",
         max_tokens=800,
         system=system,
         messages=messages,
